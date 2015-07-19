@@ -20,11 +20,11 @@ A directive to load images on demand for angular.
       <div lazy scsrc="hello.png" dfsrc="default.png" ersrc="error.png"></div>
 
 ###using webp
-      <div lazy wpsrc="hello.webp" nmsrc="hello.jpg" dfsrc="default.png" ersrc="error.png"></div>
+      <img lazy wpsrc="hello.webp" nmsrc="hello.jpg" dfsrc="default.png" ersrc="error.png"/>
 
 ###using callbacks
 
-      <div lazy scsrc="hello.png" dfsrc="default.png" ersrc="error.png" onsc="showShadow()"></div>
+      <img lazy scsrc="hello.png" dfsrc="default.png" ersrc="error.png" onsc="showShadow()"/>
 ##config
 |name|description|
 | :------------- | :------------- |
