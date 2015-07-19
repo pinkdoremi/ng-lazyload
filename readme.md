@@ -27,7 +27,7 @@ A directive to load images on demand for angular.
       <div lazy scsrc="hello.png" dfsrc="default.png" ersrc="error.png" onsc="showShadow()"></div>
 ##config
 |name|description|
-|-|
+|-|-|
 |scsrc|target image url|
 |dfsrc|default image url|
 |ersrc|error image url|
