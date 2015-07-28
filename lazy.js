@@ -3,12 +3,13 @@ angular.module('ng-lazyload', [])
     var win = $window,
         $win = angular.element(win),
         uid = 0,
-        elements = {};
+        elements = {},
+        loadedImgs = {};
     function getUid(el){
         return el.__uid || (el.__uid = '' + ++uid);
     }
 
-    function isVisible(e,preload){//only vertical visibilty.
+    function isVisible(e,preload){
         var pos = e.getBoundingClientRect();
         if (pos.top - document.documentElement.scrollTop - (typeof(preload) == "undefined"?600:preload) <= document.documentElement.clientHeight) {
             return true;
@@ -43,6 +44,7 @@ angular.module('ng-lazyload', [])
                 obj && (obj.isLoading = false);
                 setState(scope,'sc');
                 setSrc(imgEl[0],img.src);
+                loadedImgs[img.src] = true;
                 if(elements.hasOwnProperty(uid)){
                     delete elements[uid];
                 }
@@ -116,6 +118,11 @@ angular.module('ng-lazyload', [])
             });
 
             watchid[2] = $scope.$watch('scsrc', function(){
+                if(loadedImgs[$scope.scsrc]){
+                    setState($scope,'sc');
+                    setSrc(iElement,$scope.scsrc);
+                    return;
+                }
                 setSrc(iElement,$scope.dfsrc);
                 setState($scope,'df');
                 if($scope.lazy && !isVisible(iElement,$scope.preload)){//此部分暂时隐藏在可视区域外-->不加载新图片,替换成默认图片
@@ -155,7 +162,6 @@ angular.module('ng-lazyload', [])
               img.src = "data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA";
               img.onload = function () {
                   if((img.width > 0) && (img.height > 0)){
-                  if(img.width > 0) && (img.height > 0){
                     deferred.resolve();
                   }else{
                     deferred.reject();
