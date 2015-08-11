@@ -1,4 +1,5 @@
-app.directive('lazy', ['$window','$q', function($window, $q){
+﻿angular.module('ng-lazyload', [])
+.directive('lazy', ['$window','$q', function($window, $q){
     var win = $window,
         $win = angular.element(win),
         uid = 0,
