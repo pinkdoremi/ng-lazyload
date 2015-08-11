@@ -1,5 +1,4 @@
-angular.module('ng-lazyload', [])
-.directive('lazy', ['$window','$q', function($window, $q){
+app.directive('lazy', ['$window','$q', function($window, $q){
     var win = $window,
         $win = angular.element(win),
         uid = 0,
@@ -41,6 +40,7 @@ angular.module('ng-lazyload', [])
             img.src = imgEl.attr('scsrc');
             obj && (obj.isLoading = true);
             img.onload = function() {
+                if(img.src !== scope.scsrc) return;
                 obj && (obj.isLoading = false);
                 setState(scope,'sc');
                 setSrc(imgEl[0],img.src);
@@ -50,6 +50,7 @@ angular.module('ng-lazyload', [])
                 }
             }
             img.onerror = function() {
+                if(img.src !== scope.scsrc) return;
                 obj && (obj.isLoading = false);
                 setSrc(imgEl[0],imgEl.attr('ersrc'));
                 setState(scope,'er');
